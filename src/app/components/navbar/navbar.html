@@ -6,7 +6,17 @@
     <a routerLink="/">Home</a>
     <a routerLink="/cart">Cart 🛒</a>
     <a routerLink="/tracking">My Orders</a>
-    <a routerLink="/login">Login</a>
-    <a routerLink="/admin">Admin</a>
+
+    @if (!isLoggedIn()) {
+      <a routerLink="/login">Login</a>
+    }
+
+    @if (isLoggedIn() && isAdmin()) {
+      <a routerLink="/admin">Admin</a>
+    }
+
+    @if (isLoggedIn()) {
+      <a class="logout" (click)="logout()">Logout</a>
+    }
   </div>
 </nav>
