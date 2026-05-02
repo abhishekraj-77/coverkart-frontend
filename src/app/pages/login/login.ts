@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
 export class Login {
   email = '';
   password = '';
+  name = '';
+  phone = '';
+  address = '';
   error = '';
   success = '';
   isSignup = false;
@@ -20,6 +23,7 @@ export class Login {
   constructor(private http: HttpClient, private router: Router) {}
 
   onLogin() {
+    this.error = '';
     this.http.post<any>('https://coverkart.onrender.com/api/auth/login', {
       email: this.email,
       password: this.password
@@ -38,9 +42,17 @@ export class Login {
   }
 
   onSignup() {
+    this.error = '';
+    if (!this.name || !this.email || !this.phone || !this.password) {
+      this.error = 'Please fill all required fields!';
+      return;
+    }
     this.http.post<any>('https://coverkart.onrender.com/api/auth/register', {
       email: this.email,
       password: this.password,
+      name: this.name,
+      phone: this.phone,
+      address: this.address,
       isAdmin: false
     }).subscribe({
       next: () => {
@@ -48,6 +60,9 @@ export class Login {
         this.isSignup = false;
         this.email = '';
         this.password = '';
+        this.name = '';
+        this.phone = '';
+        this.address = '';
       },
       error: () => this.error = '❌ Email already exists!'
     });

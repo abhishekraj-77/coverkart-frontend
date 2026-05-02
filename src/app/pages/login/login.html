@@ -1,25 +1,67 @@
-<div class="login-container">
-  <div class="login-box">
+<div class="auth-container">
+  <div class="auth-box" *ngIf="!isSignup">
+    <div class="logo">🛍️ CoverKart</div>
+    <h2>Welcome Back!</h2>
+    <p class="subtitle">Login to your account</p>
 
-    <div class="tabs">
-      <button [class.active]="!isSignup" (click)="isSignup = false">Login</button>
-      <button [class.active]="isSignup" (click)="isSignup = true">Sign Up</button>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div class="input-group">
+      <span class="icon">📧</span>
+      <input type="email" placeholder="Enter your email" [(ngModel)]="email">
     </div>
+
+    <div class="input-group">
+      <span class="icon">🔒</span>
+      <input type="password" placeholder="Enter your password" [(ngModel)]="password">
+    </div>
+
+    <button class="btn-primary" (click)="onLogin()">Login</button>
+
+    <p class="switch-text">
+      Don't have an account?
+      <span (click)="isSignup = true">Sign Up</span>
+    </p>
+  </div>
+
+  <div class="auth-box animate" *ngIf="isSignup">
+    <div class="logo">🛍️ CoverKart</div>
+    <h2>Create Account</h2>
+    <p class="subtitle">Join CoverKart today!</p>
 
     <div *ngIf="error" class="error">{{ error }}</div>
     <div *ngIf="success" class="success">{{ success }}</div>
 
-    <div *ngIf="!isSignup">
-      <input type="email" placeholder="Email" [(ngModel)]="email">
-      <input type="password" placeholder="Password" [(ngModel)]="password">
-      <button (click)="onLogin()">Login</button>
+    <div class="input-group">
+      <span class="icon">👤</span>
+      <input type="text" placeholder="Full Name" [(ngModel)]="name">
     </div>
 
-    <div *ngIf="isSignup">
-      <input type="email" placeholder="Email" [(ngModel)]="email">
-      <input type="password" placeholder="Password" [(ngModel)]="password">
-      <button (click)="onSignup()">Create Account</button>
+    <div class="input-group">
+      <span class="icon">📧</span>
+      <input type="email" placeholder="Email Address" [(ngModel)]="email">
     </div>
 
+    <div class="input-group">
+      <span class="icon">📱</span>
+      <input type="tel" placeholder="Phone Number" [(ngModel)]="phone">
+    </div>
+
+    <div class="input-group">
+      <span class="icon">📍</span>
+      <input type="text" placeholder="Address" [(ngModel)]="address">
+    </div>
+
+    <div class="input-group">
+      <span class="icon">🔒</span>
+      <input type="password" placeholder="Create Password" [(ngModel)]="password">
+    </div>
+
+    <button class="btn-primary" (click)="onSignup()">Create Account</button>
+
+    <p class="switch-text">
+      Already have an account?
+      <span (click)="isSignup = false">Login</span>
+    </p>
   </div>
 </div>
