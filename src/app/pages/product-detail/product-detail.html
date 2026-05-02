@@ -1,0 +1,25 @@
+<div class="detail-container">
+
+  @if (message()) {
+    <div class="message">{{ message() }}</div>
+  }
+
+  @if (product()) {
+    <div class="product-detail">
+      <img [src]="product().image" [alt]="product().name">
+      <div class="product-info">
+        <h1>{{ product().name }}</h1>
+        <p class="category">📱 {{ product().category }}</p>
+        <p class="description">{{ product().description }}</p>
+        <p class="price">₹{{ product().price }}</p>
+        <p class="stock">In Stock: {{ product().stock }}</p>
+        <button (click)="addToCart()">Add to Cart 🛒</button>
+        <br>
+        <a routerLink="/">← Back to Home</a>
+      </div>
+    </div>
+  } @else {
+    <p>Loading...</p>
+  }
+
+</div>

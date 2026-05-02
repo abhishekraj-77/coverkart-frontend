@@ -1,0 +1,41 @@
+<div class="cart-container">
+  <h1>🛒 Your Cart</h1>
+
+  @if (message()) {
+    <div class="message">{{ message() }}</div>
+  }
+
+  @if (cartItems().length === 0) {
+    <div class="empty-cart">
+      <p>Your cart is empty!</p>
+      <a routerLink="/">← Continue Shopping</a>
+    </div>
+  } @else {
+    <div class="cart-items">
+      @for (item of cartItems(); track item._id; let i = $index) {
+        <div class="cart-item">
+          <img [src]="item.image" [alt]="item.name">
+          <div class="item-info">
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.category }}</p>
+            <p class="price">₹{{ item.price }}</p>
+          </div>
+          <button class="remove-btn" (click)="removeItem(i)">Remove</button>
+        </div>
+      }
+    </div>
+
+    <div class="cart-summary">
+      <h2>Order Summary</h2>
+      <p>Total Items: {{ cartItems().length }}</p>
+      <p class="total">Total: ₹{{ total() }}</p>
+
+      <input
+        placeholder="Enter delivery address"
+        [value]="address()"
+        (input)="address.set($any($event.target).value)">
+
+      <button (click)="placeOrder()">Place Order 🚀</button>
+    </div>
+  }
+</div>

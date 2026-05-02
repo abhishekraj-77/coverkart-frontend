@@ -1,0 +1,32 @@
+<div class="tracking-container">
+  <h1>📦 My Orders</h1>
+
+  @if (message()) {
+    <div class="message">{{ message() }}</div>
+  }
+
+  @if (orders().length === 0 && !message()) {
+    <p class="empty">No orders yet!</p>
+  }
+
+  @for (order of orders(); track order._id) {
+    <div class="order-card">
+      <div class="order-header">
+        <span>Order ID: {{ order._id }}</span>
+        <span class="status">{{ order.status }}</span>
+      </div>
+
+      <p class="address">📍 {{ order.address }}</p>
+      <p class="total">Total: ₹{{ order.totalAmount }}</p>
+
+      <div class="tracking-steps">
+        @for (step of getSteps(order.status); track step.name) {
+          <div class="step" [class.done]="step.done">
+            <div class="circle">{{ step.done ? '✅' : '○' }}</div>
+            <p>{{ step.name }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

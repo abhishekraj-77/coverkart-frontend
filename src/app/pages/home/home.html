@@ -1,0 +1,22 @@
+<div class="home">
+  <div class="hero">
+    <h1>Premium Phone Covers 📱</h1>
+    <p>Find the perfect cover for your phone</p>
+  </div>
+
+  <div class="products-grid">
+    @for (product of products(); track product._id) {
+      <div class="product-card">
+        <img [src]="product.image" [alt]="product.name">
+        <h3>{{ product.name }}</h3>
+        <p class="category">{{ product.category }}</p>
+        <p class="price">₹{{ product.price }}</p>
+        <a [routerLink]="['/product', product._id]">
+          <button>View Details</button>
+        </a>
+      </div>
+    } @empty {
+      <p>No products found!</p>
+    }
+  </div>
+</div>
