@@ -1,52 +1,30 @@
-.login-container {
+.tabs {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80vh;
-}
-
-.login-box {
-  background: white;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
-}
-
-.login-box h2 {
   margin-bottom: 25px;
-  color: #1a1a2e;
-}
-
-input {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0;
+  border-radius: 8px;
+  overflow: hidden;
   border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-  box-sizing: border-box;
 }
 
-button {
-  width: 100%;
+.tabs button {
+  flex: 1;
   padding: 12px;
+  border: none;
+  background: #f5f5f5;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0;
+  border-radius: 0;
+}
+
+.tabs button.active {
   background: #e94560;
   color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 15px;
 }
 
-button:hover { background: #c73652; }
-
-.error {
-  background: #ffe0e0;
-  color: #e94560;
+.success {
+  background: #e8f5e9;
+  color: #2e7d32;
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 15px;

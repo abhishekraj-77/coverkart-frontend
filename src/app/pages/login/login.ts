@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -14,6 +14,8 @@ export class Login {
   email = '';
   password = '';
   error = '';
+  success = '';
+  isSignup = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -31,9 +33,23 @@ export class Login {
           this.router.navigate(['/']);
         }
       },
-      error: () => {
-        this.error = 'Invalid email or password!';
-      }
+      error: () => this.error = 'Invalid email or password!'
+    });
+  }
+
+  onSignup() {
+    this.http.post<any>('https://coverkart.onrender.com/api/auth/register', {
+      email: this.email,
+      password: this.password,
+      isAdmin: false
+    }).subscribe({
+      next: () => {
+        this.success = '✅ Account created! Please login.';
+        this.isSignup = false;
+        this.email = '';
+        this.password = '';
+      },
+      error: () => this.error = '❌ Email already exists!'
     });
   }
 }
