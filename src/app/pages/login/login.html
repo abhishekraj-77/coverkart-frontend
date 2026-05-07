@@ -1,10 +1,17 @@
 <div class="auth-container">
-  <div class="auth-box" *ngIf="!isSignup">
+
+  <!-- LOGIN -->
+  <div class="auth-box" *ngIf="!isSignup && !isForgotPassword">
     <div class="logo">🛍️ CoverKart</div>
     <h2>Welcome Back!</h2>
     <p class="subtitle">Login to your account</p>
 
-    <div *ngIf="error" class="error">{{ error }}</div>
+    @if (error()) {
+      <div class="error">{{ error() }}</div>
+    }
+    @if (success()) {
+      <div class="success">{{ success() }}</div>
+    }
 
     <div class="input-group">
       <span class="icon">📧</span>
@@ -16,21 +23,32 @@
       <input type="password" placeholder="Enter your password" [(ngModel)]="password">
     </div>
 
-    <button class="btn-primary" (click)="onLogin()">Login</button>
+    <p class="forgot-text" (click)="isForgotPassword = true">
+      Forgot Password?
+    </p>
+
+    <button class="btn-primary" (click)="onLogin()" [disabled]="loading()">
+      {{ loading() ? 'Please wait...' : 'Login' }}
+    </button>
 
     <p class="switch-text">
       Don't have an account?
-      <span (click)="isSignup = true">Sign Up</span>
+      <span (click)="isSignup = true; error.set(''); success.set('')">Sign Up</span>
     </p>
   </div>
 
-  <div class="auth-box animate" *ngIf="isSignup">
+  <!-- SIGNUP -->
+  <div class="auth-box" *ngIf="isSignup && !isForgotPassword">
     <div class="logo">🛍️ CoverKart</div>
     <h2>Create Account</h2>
     <p class="subtitle">Join CoverKart today!</p>
 
-    <div *ngIf="error" class="error">{{ error }}</div>
-    <div *ngIf="success" class="success">{{ success }}</div>
+    @if (error()) {
+      <div class="error">{{ error() }}</div>
+    }
+    @if (success()) {
+      <div class="success">{{ success() }}</div>
+    }
 
     <div class="input-group">
       <span class="icon">👤</span>
@@ -57,11 +75,47 @@
       <input type="password" placeholder="Create Password" [(ngModel)]="password">
     </div>
 
-    <button class="btn-primary" (click)="onSignup()">Create Account</button>
+    <div class="input-group">
+      <span class="icon">🔒</span>
+      <input type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword">
+    </div>
+
+    <button class="btn-primary" (click)="onSignup()" [disabled]="loading()">
+      {{ loading() ? 'Please wait...' : 'Create Account' }}
+    </button>
 
     <p class="switch-text">
       Already have an account?
-      <span (click)="isSignup = false">Login</span>
+      <span (click)="isSignup = false; error.set(''); success.set('')">Login</span>
     </p>
   </div>
+
+  <!-- FORGOT PASSWORD -->
+  <div class="auth-box" *ngIf="isForgotPassword">
+    <div class="logo">🛍️ CoverKart</div>
+    <h2>Reset Password</h2>
+    <p class="subtitle">Enter your email to reset password</p>
+
+    @if (error()) {
+      <div class="error">{{ error() }}</div>
+    }
+    @if (success()) {
+      <div class="success">{{ success() }}</div>
+    }
+
+    <div class="input-group">
+      <span class="icon">📧</span>
+      <input type="email" placeholder="Enter your email" [(ngModel)]="email">
+    </div>
+
+    <button class="btn-primary" (click)="onForgotPassword()" [disabled]="loading()">
+      {{ loading() ? 'Please wait...' : 'Send Reset Email' }}
+    </button>
+
+    <p class="switch-text">
+      Remember password?
+      <span (click)="isForgotPassword = false; error.set(''); success.set('')">Login</span>
+    </p>
+  </div>
+
 </div>
