@@ -8,7 +8,7 @@ import {
   sendEmailVerification,
   sendPasswordResetEmail
 } from 'firebase/auth';
-import { auth } from '../firebase.config';
+import { auth } from '../../firebase.config';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
